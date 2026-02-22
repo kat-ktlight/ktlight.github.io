@@ -1,5 +1,7 @@
 # KT Light LLC
 
+> [Dynamic Version](https://ktlight.my.canva.site/kt-light-llc)
+
 ### Optimizing Your Business Starts Here
 
 At KT Light LLC, we work with you to optimize your business from the top down. We are always here to help your business get off the ground and grow.
