@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KT Light LLC</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #f2ede8;
+      --dark: #1a1a1a;
+      --mid: #4a4a4a;
+      --light: #9a9a9a;
+      --accent: #c9b99a;
+      --white: #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--white);
+      color: var(--dark);
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.5rem 5%;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--dark);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--mid);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--dark); }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: var(--cream);
+      opacity: 0;
+      animation: fadeUp 1s ease forwards 0.2s;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 10rem 6% 6rem;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--light);
+      margin-bottom: 2rem;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 5vw, 5rem);
+      font-weight: 300;
+      line-height: 1.1;
+      color: var(--dark);
+      margin-bottom: 2rem;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    .hero-sub {
+      font-size: 0.95rem;
+      color: var(--mid);
+      line-height: 1.7;
+      max-width: 360px;
+      margin-bottom: 3rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.9rem 2.2rem;
+      border: 1.5px solid var(--dark);
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--dark);
+      text-decoration: none;
+      transition: background 0.25s, color 0.25s;
+      width: fit-content;
+    }
+
+    .btn:hover {
+      background: var(--dark);
+      color: var(--white);
+    }
+
+    .hero-right {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-right::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #d4c9bb 0%, #b8a99a 100%);
+    }
+
+    .hero-right .hero-pattern {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-pattern svg {
+      width: 260px;
+      opacity: 0.18;
+    }
+
+    .hero-badge {
+      position: absolute;
+      bottom: 3rem;
+      right: 3rem;
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.8);
+      animation: spin 20s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* DIVIDER */
+    .marquee-bar {
+      background: var(--dark);
+      color: var(--white);
+      padding: 1rem 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .marquee-inner {
+      display: inline-flex;
+      gap: 3rem;
+      animation: marquee 18s linear infinite;
+    }
+
+    .marquee-inner span {
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: 0.7;
+    }
+
+    .marquee-inner span.dot {
+      opacity: 0.3;
+    }
+
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* WHO WE ARE */
+    #about {
+      padding: 9rem 5%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    #about.visible { opacity: 1; transform: translateY(0); }
+
+    .about-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+    }
+
+    .about-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 4vw, 3.8rem);
+      font-weight: 300;
+      line-height: 1.15;
+      color: var(--dark);
+      margin-bottom: 2rem;
+    }
+
+    .about-body {
+      font-size: 1rem;
+      color: var(--mid);
+      line-height: 1.85;
+    }
+
+    .about-visual {
+      position: relative;
+      height: 420px;
+    }
+
+    .about-box-1 {
+      position: absolute;
+      top: 0; left: 0;
+      width: 75%;
+      height: 75%;
+      background: var(--cream);
+    }
+
+    .about-box-2 {
+      position: absolute;
+      bottom: 0; right: 0;
+      width: 65%;
+      height: 65%;
+      background: var(--dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .about-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-style: italic;
+      color: rgba(255,255,255,0.75);
+      text-align: center;
+      padding: 2rem;
+      line-height: 1.6;
+    }
+
+    /* SERVICES */
+    #services {
+      background: var(--cream);
+      padding: 9rem 5%;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    #services.visible { opacity: 1; transform: translateY(0); }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 5rem;
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      font-weight: 300;
+      color: var(--dark);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    .service-card {
+      background: var(--white);
+      padding: 3.5rem 2.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+
+    .service-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 2px;
+      background: var(--dark);
+      transition: width 0.4s ease;
+    }
+
+    .service-card:hover { transform: translateY(-4px); }
+    .service-card:hover::after { width: 100%; }
+
+    .service-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3.5rem;
+      font-weight: 300;
+      color: var(--cream);
+      position: absolute;
+      top: 1.5rem; right: 2rem;
+      line-height: 1;
+      user-select: none;
+    }
+
+    .service-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--dark);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.8rem;
+    }
+
+    .service-icon svg {
+      width: 20px;
+      height: 20px;
+      stroke: white;
+      fill: none;
+      stroke-width: 1.5;
+    }
+
+    .service-name {
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--dark);
+      margin-bottom: 1.5rem;
+    }
+
+    .service-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .service-list li {
+      font-size: 0.9rem;
+      color: var(--mid);
+      line-height: 1.5;
+      padding-left: 1rem;
+      position: relative;
+    }
+
+    .service-list li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+
+    /* CONTACT */
+    #contact {
+      padding: 9rem 5%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    #contact.visible { opacity: 1; transform: translateY(0); }
+
+    .contact-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 4vw, 4rem);
+      font-weight: 300;
+      line-height: 1.15;
+      color: var(--dark);
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-title em {
+      font-style: italic;
+    }
+
+    .contact-body {
+      font-size: 0.95rem;
+      color: var(--mid);
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+      max-width: 380px;
+    }
+
+    .contact-detail {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .contact-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .contact-item-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--light);
+    }
+
+    .contact-item-value {
+      font-size: 1rem;
+      color: var(--dark);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+      width: fit-content;
+    }
+
+    .contact-item-value:hover { border-color: var(--dark); }
+
+    .contact-visual {
+      background: var(--dark);
+      height: 480px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-visual::before {
+      content: '';
+      position: absolute;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.06);
+      top: -100px; right: -100px;
+    }
+
+    .contact-visual::after {
+      content: '';
+      position: absolute;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.06);
+      bottom: -80px; left: -80px;
+    }
+
+    .contact-visual-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.6);
+      text-align: center;
+      font-style: italic;
+      z-index: 1;
+      padding: 0 2rem;
+    }
+
+    .contact-visual-line {
+      width: 40px;
+      height: 1px;
+      background: rgba(255,255,255,0.2);
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--cream);
+      padding: 2.5rem 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid rgba(0,0,0,0.07);
+    }
+
+    .footer-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      color: var(--mid);
+    }
+
+    .footer-copy {
+      font-size: 0.75rem;
+      color: var(--light);
+      letter-spacing: 0.05em;
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      #hero { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      .hero-left { padding: 8rem 6% 5rem; }
+      #about, #contact { grid-template-columns: 1fr; gap: 3rem; }
+      .about-visual { display: none; }
+      .contact-visual { display: none; }
+      .services-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="#">KT Light LLC</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-left">
+      <p class="hero-eyebrow">KT Light LLC — Business Consulting</p>
+      <h1 class="hero-title">Optimizing Your<br><em>Business</em><br>Starts Here</h1>
+      <p class="hero-sub">We work with you to optimize your business from the top down — helping you get off the ground and grow with confidence.</p>
+      <a href="#about" class="btn">Find Out More</a>
+    </div>
+    <div class="hero-right">
+      <div class="hero-pattern">
+        <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M100 10 L190 55 L190 145 L100 190 L10 145 L10 55 Z" stroke="#1a1a1a" stroke-width="1.5"/>
+          <path d="M100 30 L170 67 L170 133 L100 170 L30 133 L30 67 Z" stroke="#1a1a1a" stroke-width="1"/>
+          <circle cx="100" cy="100" r="30" stroke="#1a1a1a" stroke-width="1.5"/>
+          <circle cx="100" cy="100" r="50" stroke="#1a1a1a" stroke-width="0.5"/>
+        </svg>
+      </div>
+      <div class="hero-badge">Business · Growth · Strategy · Success ·&nbsp;</div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-bar">
+    <div class="marquee-inner">
+      <span>Small Business Consulting</span><span class="dot">◆</span>
+      <span>Operations & Infrastructure</span><span class="dot">◆</span>
+      <span>Data & Analytics</span><span class="dot">◆</span>
+      <span>Strategic Growth</span><span class="dot">◆</span>
+      <span>Business Optimization</span><span class="dot">◆</span>
+      <span>Small Business Consulting</span><span class="dot">◆</span>
+      <span>Operations & Infrastructure</span><span class="dot">◆</span>
+      <span>Data & Analytics</span><span class="dot">◆</span>
+      <span>Strategic Growth</span><span class="dot">◆</span>
+      <span>Business Optimization</span><span class="dot">◆</span>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div>
+      <p class="about-label">Who We Are</p>
+      <h2 class="about-title">We work with you,<br>top to bottom.</h2>
+      <p class="about-body">At KT Light LLC, we work with you to optimize your business from the top down. We are always here to help your business get off the ground and grow. Whether you're just starting out or ready to scale, we bring the structure, strategy, and insight to move you forward.</p>
+    </div>
+    <div class="about-visual">
+      <div class="about-box-1"></div>
+      <div class="about-box-2">
+        <p class="about-quote">"Success happens to those who work for it."</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="section-header">
+      <span class="section-label">What We Do</span>
+      <h2 class="section-title">Our Services</h2>
+    </div>
+    <div class="services-grid">
+
+      <div class="service-card">
+        <span class="service-num">01</span>
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+        </div>
+        <p class="service-name">Small Business Consulting</p>
+        <ul class="service-list">
+          <li>Building a strong foundation for confident decisions.</li>
+          <li>Providing structure, clarity, and strategic direction.</li>
+          <li>Supporting sustainable growth at every stage.</li>
+        </ul>
+      </div>
+
+      <div class="service-card">
+        <span class="service-num">02</span>
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+        </div>
+        <p class="service-name">Operations & Infrastructure</p>
+        <ul class="service-list">
+          <li>Keeping the lights on and the business running smoothly.</li>
+          <li>Improving processes, systems, and day-to-day operations.</li>
+          <li>Creating stability while preparing for what's next.</li>
+        </ul>
+      </div>
+
+      <div class="service-card">
+        <span class="service-num">03</span>
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3 A9 9 0 0 1 21 12"/><line x1="12" y1="3" x2="12" y2="12"/><line x1="12" y1="12" x2="21" y2="12"/></svg>
+        </div>
+        <p class="service-name">Data & Analytics</p>
+        <ul class="service-list">
+          <li>Turning information into meaningful insight.</li>
+          <li>Designing metrics that reflect what truly matters.</li>
+          <li>Using data to guide smarter business decisions.</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div>
+      <h2 class="contact-title">Let's do this<br><em>together.</em></h2>
+      <p class="contact-body">Ready to optimize your business? We'd love to connect and talk about where you are and where you want to go.</p>
+      <div class="contact-detail">
+        <div class="contact-item">
+          <span class="contact-item-label">Contact</span>
+          <a class="contact-item-value" href="mailto:info@ktlight.com">info@ktlight.com</a>
+        </div>
+      </div>
+    </div>
+    <div class="contact-visual">
+      <div class="contact-visual-line"></div>
+      <p class="contact-visual-text">Optimizing Your Business Starts Here</p>
+      <div class="contact-visual-line"></div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-brand">KT Light LLC</span>
+    <span class="footer-copy">&copy; 2026 KT Light LLC. All rights reserved.</span>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('#about, #services, #contact').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
